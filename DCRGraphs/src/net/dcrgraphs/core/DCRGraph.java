@@ -13,6 +13,7 @@ public class DCRGraph {
 	private HashMap<String, HashSet<String>> responsesTo = new HashMap<String, HashSet<String>>();
 	private HashMap<String, HashSet<String>> excludesTo = new HashMap<String, HashSet<String>>();
 	private HashMap<String, HashSet<String>> includesTo = new HashMap<String, HashSet<String>>();
+	public DCRMarking marking;
 	
 	public void AddEvent(String e)
 	{
@@ -52,48 +53,50 @@ public class DCRGraph {
 	
 	
 
-	public Boolean Enabled(final DCRMarking m, final String e) {
-		if (!events.contains(e)) { return true; }
+	public Boolean Enabled(final DCRMarking marking, final String event) {
+		if (!events.contains(event)) { return true; }
 		// check included
-		if (!m.included.contains(e)) { return false;
+		if (!marking.included.contains(event)) { return false;
 		// check conditions
 		}
 
 		// if (!m.executed.containsAll(RelationsFor(conditions, e)))
-		final Set<String> inccon = new HashSet<String>(conditionsFor.get(e));
-		inccon.retainAll(m.included);
-		if (!m.executed.containsAll(inccon)) { return false; }
+		final Set<String> inccon = new HashSet<String>(conditionsFor.get(event));
+		inccon.retainAll(marking.included);
+		if (!marking.executed.containsAll(inccon)) { return false; }
 
 		// check milestones
 
-		final Set<String> incmil = new HashSet<String>(milestonesFor.get(e));
-		incmil.retainAll(m.included);
+		final Set<String> incmil = new HashSet<String>(milestonesFor.get(event));
+		incmil.retainAll(marking.included);
 
-		for (final String p : m.pending) {
+		for (final String p : marking.pending) {
 			if (incmil.contains(p)) { return false; }
 		}
 		return true;
 	}
+	
+	public void Execute(final String event) {
+		marking = Execute(marking, event);		
+	}	
 
-	public DCRMarking Execute(final DCRMarking m, final String e) {
-		if (!events.contains(e)) { return m; }
+	public DCRMarking Execute(final DCRMarking marking, final String event) {
+		if (!events.contains(event)) { return marking; }
 
-		if (!Enabled(m, e)) { return m; }
+		if (!Enabled(marking, event)) { return marking; }
 
-		// DCRMarking result = new DCRMarking();
+		marking.executed.add(event);
+		marking.pending.remove(event);
+		marking.pending.addAll(responsesTo.get(event));
+		marking.included.removeAll(excludesTo.get(event));
+		marking.included.addAll(includesTo.get(event));
 
-		// for (String s : m.executed)
-
-		m.executed.add(e);
-
-		m.pending.remove(e);
-		m.pending.addAll(responsesTo.get(e));
-		m.included.removeAll(excludesTo.get(e));
-		m.included.addAll(includesTo.get(e));
-
-		// TODO
-		return m;
+		return marking;
 	}
+	
+	public void Run(final List<String> trace) {
+		marking = Run(marking, trace);
+	}		
 	
 	public DCRMarking Run(final DCRMarking marking, List<String> trace)
 	{

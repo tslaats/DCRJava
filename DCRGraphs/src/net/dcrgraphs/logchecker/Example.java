@@ -21,7 +21,7 @@ public class Example {
 			trace.add(event);
 		}
 		// Creates a graph with the events from the log and no relations
-		DCRGraph graph = DCRLogChecker.EmptyGraph(trace);
+		DCRGraph graph = DCRLogChecker.emptyGraph(trace);
 		
 		// Creates a marking for the graph with no events executed or pending and all events included. 
 		DCRMarking marking = graph.DefaultInitialMarking();
@@ -33,12 +33,12 @@ public class Example {
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
 		
-		if (DCRLogChecker.Validate(trace, graph, marking))
+		if (DCRLogChecker.validate(trace, graph, marking))
 			System.out.println("Valid Trace");
 		else
 			System.out.println("Invalid Trace");
 		
-		if (DCRLogChecker.AcceptingTrace(trace, graph, marking))
+		if (DCRLogChecker.acceptingTrace(trace, graph, marking))
 			System.out.println("Accepting Trace");
 		else
 			System.out.println("Non-accepting Trace");		
@@ -49,12 +49,12 @@ public class Example {
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
 		
-		if (DCRLogChecker.Validate(trace, graph, marking))
+		if (DCRLogChecker.validate(trace, graph, marking))
 			System.out.println("Valid Trace");
 		else
 			System.out.println("Invalid Trace");
 		
-		if (DCRLogChecker.AcceptingTrace(trace, graph, marking))
+		if (DCRLogChecker.acceptingTrace(trace, graph, marking))
 			System.out.println("Accepting Trace");
 		else
 			System.out.println("Non-accepting Trace");
@@ -66,12 +66,12 @@ public class Example {
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
 		
-		if (DCRLogChecker.Validate(trace, graph, marking))
+		if (DCRLogChecker.validate(trace, graph, marking))
 			System.out.println("Valid Trace");
 		else
 			System.out.println("Invalid Trace");
 		
-		if (DCRLogChecker.AcceptingTrace(trace, graph, marking))
+		if (DCRLogChecker.acceptingTrace(trace, graph, marking))
 			System.out.println("Accepting Trace");
 		else
 			System.out.println("Non-accepting Trace");
@@ -81,12 +81,12 @@ public class Example {
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
 		
-		if (DCRLogChecker.Validate(trace, graph, marking))
+		if (DCRLogChecker.validate(trace, graph, marking))
 			System.out.println("Valid Trace");
 		else
 			System.out.println("Invalid Trace");
 		
-		if (DCRLogChecker.AcceptingTrace(trace, graph, marking))
+		if (DCRLogChecker.acceptingTrace(trace, graph, marking))
 			System.out.println("Accepting Trace");
 		else
 			System.out.println("Non-accepting Trace");		
@@ -97,12 +97,12 @@ public class Example {
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
 		
-		if (DCRLogChecker.Validate(trace, graph, marking))
+		if (DCRLogChecker.validate(trace, graph, marking))
 			System.out.println("Valid Trace");
 		else
 			System.out.println("Invalid Trace");
 		
-		if (DCRLogChecker.AcceptingTrace(trace, graph, marking))
+		if (DCRLogChecker.acceptingTrace(trace, graph, marking))
 			System.out.println("Accepting Trace");
 		else
 			System.out.println("Non-accepting Trace");				
