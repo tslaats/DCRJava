@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 public class DCRGraph {
@@ -15,7 +16,7 @@ public class DCRGraph {
 	private HashMap<String, HashSet<String>> includesTo = new HashMap<String, HashSet<String>>();
 	public DCRMarking marking;
 	
-	public void AddEvent(String e)
+	public void addEvent(String e)
 	{
 		events.add(e);
 		conditionsFor.put(e, new HashSet<String>());
@@ -26,34 +27,56 @@ public class DCRGraph {
 	}
 	
 	
-	public void AddCondition(String src, String trg)
+	private String randomAlphabeticString(int length)
+	{
+		char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < length; i++) {
+		    char c = chars[random.nextInt(chars.length)];
+		    sb.append(c);
+		}
+		return sb.toString();	
+	}
+	
+	
+	public String newEvent()
+	{
+		String newName = "g" + randomAlphabeticString(10);
+		while (events.contains(newName))
+			newName = "g" + randomAlphabeticString(10);
+		addEvent(newName);
+		return newName;
+	}
+	
+	public void addCondition(String src, String trg)
 	{
 		conditionsFor.get(trg).add(src);
 	}
 	
-	public void AddMilestone(String src, String trg)
+	public void addMilestone(String src, String trg)
 	{
 		milestonesFor.get(trg).add(src);
 	}
 	
-	public void AddResponse(String src, String trg)
+	public void addResponse(String src, String trg)
 	{
 		responsesTo.get(src).add(trg);
 	}	
 	
-	public void AddExclude(String src, String trg)
+	public void addExclude(String src, String trg)
 	{
 		excludesTo.get(src).add(trg);
 	}	
 	
-	public void AddInclude(String src, String trg)
+	public void addInclude(String src, String trg)
 	{
 		includesTo.get(src).add(trg);
 	}		
 	
 	
 
-	public Boolean Enabled(final DCRMarking marking, final String event) {
+	public Boolean enabled(final DCRMarking marking, final String event) {
 		if (!events.contains(event)) { return true; }
 		// check included
 		if (!marking.included.contains(event)) { return false;
@@ -76,14 +99,14 @@ public class DCRGraph {
 		return true;
 	}
 	
-	public void Execute(final String event) {
-		marking = Execute(marking, event);		
+	public void execute(final String event) {
+		marking = execute(marking, event);		
 	}	
 
-	public DCRMarking Execute(final DCRMarking marking, final String event) {
+	public DCRMarking execute(final DCRMarking marking, final String event) {
 		if (!events.contains(event)) { return marking; }
 
-		if (!Enabled(marking, event)) { return marking; }
+		if (!enabled(marking, event)) { return marking; }
 
 		marking.executed.add(event);
 		marking.pending.remove(event);
@@ -94,24 +117,24 @@ public class DCRGraph {
 		return marking;
 	}
 	
-	public void Run(final List<String> trace) {
-		marking = Run(marking, trace);
+	public void run(final List<String> trace) {
+		marking = run(marking, trace);
 	}		
 	
-	public DCRMarking Run(final DCRMarking marking, List<String> trace)
+	public DCRMarking run(final DCRMarking marking, List<String> trace)
 	{
 		DCRMarking m = marking.clone();
 		for (String e : trace)
 		{
-			if (!Enabled(m, e))
+			if (!enabled(m, e))
 				return null;
 			else
-				m = Execute(m,e);
+				m = execute(m,e);
 		}		
 		return m;
 	}
 
-	public DCRMarking DefaultInitialMarking() {
+	public DCRMarking defaultInitialMarking() {
 		final DCRMarking result = new DCRMarking();
 		for (final String e : events) {
 			result.included.add(e);

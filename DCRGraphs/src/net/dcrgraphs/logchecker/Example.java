@@ -24,11 +24,11 @@ public class Example {
 		DCRGraph graph = DCRLogChecker.emptyGraph(trace);
 		
 		// Creates a marking for the graph with no events executed or pending and all events included. 
-		DCRMarking marking = graph.DefaultInitialMarking();
+		DCRMarking marking = graph.defaultInitialMarking();
 		
-		graph.AddResponse("A", "C");
-		graph.AddMilestone("B", "C");
-		graph.AddCondition("A", "B");		
+		graph.addResponse("A", "C");
+		graph.addMilestone("B", "C");
+		graph.addCondition("A", "B");		
 		
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
@@ -44,7 +44,7 @@ public class Example {
 			System.out.println("Non-accepting Trace");		
 
 
-		graph.AddResponse("C", "A");
+		graph.addResponse("C", "A");
 		
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
@@ -61,7 +61,7 @@ public class Example {
 		
 		
 		
-		graph.AddExclude("C", "A");
+		graph.addExclude("C", "A");
 		
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
@@ -76,7 +76,7 @@ public class Example {
 		else
 			System.out.println("Non-accepting Trace");
 		
-		graph.AddInclude("C", "A");
+		graph.addInclude("C", "A");
 		
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());
@@ -92,7 +92,7 @@ public class Example {
 			System.out.println("Non-accepting Trace");		
 	
 		
-		graph.AddCondition("C", "A");
+		graph.addCondition("C", "A");
 		
 		System.out.println("Checking for graph:");
 		System.out.println(graph.toString());

@@ -11,11 +11,11 @@ public class DCRTemplateFactory {
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
 		{
-			g.AddEvent(e);
+			g.addEvent(e);
 			if (!e.equals(eventA))
-				g.AddCondition(eventA, e);
+				g.addCondition(eventA, e);
 		}
-		g.marking = g.DefaultInitialMarking();		
+		g.marking = g.defaultInitialMarking();		
 		return g;
 	}
 	
@@ -24,8 +24,8 @@ public class DCRTemplateFactory {
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
-			g.AddEvent(e);
-		g.marking = g.DefaultInitialMarking();
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
 		g.marking.pending.add(eventA);
 		return g;
 	}
@@ -35,8 +35,8 @@ public class DCRTemplateFactory {
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
-			g.AddEvent(e);
-		g.marking = g.DefaultInitialMarking();
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
 		g.marking.included.remove(eventA);
 		return g;
 	}	
@@ -46,11 +46,145 @@ public class DCRTemplateFactory {
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
-			g.AddEvent(e);
-		g.marking = g.DefaultInitialMarking();
-		g.AddExclude(eventA, eventA);
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addExclude(eventA, eventA);
 		return g;
 	}		
 	
-
+	
+	static DCRGraph exactly1(HashSet<String> events, String eventA)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addExclude(eventA, eventA);
+		g.marking.pending.add(eventA);
+		return g;
+	}	
+	
+	static DCRGraph choice(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		String blockingEvent = g.newEvent();			
+		g.marking = g.defaultInitialMarking();
+		g.marking.pending.add(blockingEvent);
+		g.addCondition(blockingEvent, blockingEvent);		
+		g.addExclude(eventA, blockingEvent);
+		g.addExclude(eventB, blockingEvent);		
+		return g;
+	}		
+	 
+	static DCRGraph exclusiveChoice(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		String blockingEvent = g.newEvent();			
+		g.marking = g.defaultInitialMarking();
+		g.marking.pending.add(blockingEvent);
+		g.addCondition(blockingEvent, blockingEvent);		
+		g.addExclude(eventA, blockingEvent);
+		g.addExclude(eventB, blockingEvent);		
+		g.addExclude(eventB, eventA);		
+		g.addExclude(eventA, eventB);		
+		return g;
+	}
+	
+	static DCRGraph response(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addResponse(eventA, eventB);
+		return g;
+	}	
+	
+	static DCRGraph precedence(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addCondition(eventA, eventB);
+		return g;
+	}
+	
+	
+	static DCRGraph succession(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addCondition(eventA, eventB);
+		g.addResponse(eventA, eventB);
+		return g;
+	}
+	
+	static DCRGraph alternateResponse(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addResponse(eventA, eventB);
+		g.addExclude(eventA, eventA);
+		g.addInclude(eventB, eventA);
+		return g;
+	}
+	 
+	static DCRGraph AlternatePrecedence(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.marking.included.remove(eventB);
+		g.addInclude(eventA, eventB);
+		g.addExclude(eventB, eventB);
+		return g;
+	}	 
+			
+	
+	static DCRGraph alternateSuccession(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.marking.included.remove(eventB);
+		g.addInclude(eventA, eventB);
+		g.addExclude(eventB, eventB);
+		g.addResponse(eventA, eventB);
+		g.addExclude(eventA, eventA);
+		g.addInclude(eventB, eventA);
+		return g;
+	}
+	
+	
+	static DCRGraph notCoExistence(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addExclude(eventA, eventB);
+		g.addExclude(eventB, eventA);
+		return g;
+	}		
+	
+	static DCRGraph notSuccession(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);
+		g.marking = g.defaultInitialMarking();
+		g.addExclude(eventA, eventB);		
+		return g;
+	}
 }

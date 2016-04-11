@@ -17,7 +17,7 @@ public class DCRLogChecker {
 		for(XEvent event :t)
 		{
 			String activityName = XConceptExtension.instance().extractName(event);
-			g.AddEvent(activityName);
+			g.addEvent(activityName);
 		}
 		return g;
 	}		
@@ -29,7 +29,7 @@ public class DCRLogChecker {
 			for(XEvent event :trace)
 			{
 				String activityName = XConceptExtension.instance().extractName(event);
-				g.AddEvent(activityName);
+				g.addEvent(activityName);
 			}
 		return g;
 	}		
@@ -56,7 +56,7 @@ public class DCRLogChecker {
 			eventTrace.add(activityName);
 		}		
 		//System.out.println(g.Run(m, eventTrace).toString());
-		return (graph.Run(marking, eventTrace) != null);
+		return (graph.run(marking, eventTrace) != null);
 	}
 	
 	
@@ -69,6 +69,6 @@ public class DCRLogChecker {
 			eventTrace.add(activityName);
 		}
 		//System.out.println(g.Run(m, eventTrace).toString());
-		return (graph.Run(marking, eventTrace) != null && graph.Run(marking, eventTrace).IsAccepting());
+		return (graph.run(marking, eventTrace) != null && graph.run(marking, eventTrace).IsAccepting());
 	}	
 }
