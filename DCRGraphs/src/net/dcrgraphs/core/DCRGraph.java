@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class DCRGraph {
-	private HashSet<String> events = new HashSet<String>();	
+	protected HashSet<String> events = new HashSet<String>();	
 	private HashMap<String, HashSet<String>> conditionsFor = new HashMap<String, HashSet<String>>();
 	private HashMap<String, HashSet<String>> milestonesFor = new HashMap<String, HashSet<String>>();	
 	private HashMap<String, HashSet<String>> responsesTo = new HashMap<String, HashSet<String>>();
@@ -27,7 +27,7 @@ public class DCRGraph {
 	}
 	
 	
-	private String randomAlphabeticString(int length)
+	protected String randomAlphabeticString(int length)
 	{
 		char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 		StringBuilder sb = new StringBuilder();
@@ -76,7 +76,7 @@ public class DCRGraph {
 	
 	
 
-	public Boolean enabled(final DCRMarking marking, final String event) {
+	public Boolean enabled(final DCRMarking marking, final String event) {		
 		if (!events.contains(event)) { return true; }
 		// check included
 		if (!marking.included.contains(event)) { return false;
@@ -89,13 +89,13 @@ public class DCRGraph {
 		if (!marking.executed.containsAll(inccon)) { return false; }
 
 		// check milestones
-
 		final Set<String> incmil = new HashSet<String>(milestonesFor.get(event));
 		incmil.retainAll(marking.included);
 
 		for (final String p : marking.pending) {
 			if (incmil.contains(p)) { return false; }
 		}
+		
 		return true;
 	}
 	
@@ -106,14 +106,14 @@ public class DCRGraph {
 	public DCRMarking execute(final DCRMarking marking, final String event) {
 		if (!events.contains(event)) { return marking; }
 
-		if (!enabled(marking, event)) { return marking; }
+		if (!this.enabled(marking, event)) { return marking; }
 
 		marking.executed.add(event);
 		marking.pending.remove(event);
 		marking.pending.addAll(responsesTo.get(event));
 		marking.included.removeAll(excludesTo.get(event));
 		marking.included.addAll(includesTo.get(event));
-
+		
 		return marking;
 	}
 	
@@ -195,6 +195,12 @@ public class DCRGraph {
 				result.append(src + " -><> " + trg + ";");
 		}
 		result.append(NEW_LINE);		
+		
+		if (marking != null)
+		{
+			result.append(" Marking: " + NEW_LINE);
+			result.append(marking.toString());
+		}
 		
 		// Note that Collections and Maps also override toString
 		// result.append(" RelationID: " + relationID.toString() + NEW_LINE);

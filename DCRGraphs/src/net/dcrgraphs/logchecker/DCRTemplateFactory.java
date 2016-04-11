@@ -138,7 +138,7 @@ public class DCRTemplateFactory {
 		return g;
 	}
 	 
-	static DCRGraph AlternatePrecedence(HashSet<String> events, String eventA, String eventB)
+	static DCRGraph alternatePrecedence(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -187,4 +187,125 @@ public class DCRTemplateFactory {
 		g.addExclude(eventA, eventB);		
 		return g;
 	}
+	
+	// Existence2 l: !e1(l), %!e2(l), e1(l) -->+ e2(l), e1(l) -->% e1(l)
+	static LabelledDCRGraph existence2(HashSet<String> events, String eventA)
+	{
+		LabelledDCRGraph g = new LabelledDCRGraph();
+		for(String e : events)
+			g.addEvent(e);		
+		String eventB = g.newEvent();
+		g.removeLabel(eventB,eventB);
+		g.addLabel(eventB, eventA);		
+		g.marking = g.defaultInitialMarking();
+		g.marking.pending.add(eventA);
+		g.marking.pending.add(eventB);
+		g.marking.included.remove(eventB);
+		g.addInclude(eventA, eventB);
+		g.addExclude(eventA, eventA);
+		return g;
+	}
+	
+
+	//Existence3 l: !e1(l), %!e2(l), %!e3(l), e1(l) -->+ e2(l), e1(l) -->% e1(l), e2(l) -->+ e3(l), e2(l) -->% e2(l)
+	static LabelledDCRGraph existence3(HashSet<String> events, String eventA)
+	{
+		LabelledDCRGraph g = new LabelledDCRGraph();
+		for(String e : events)
+			g.addEvent(e);		
+		String eventB = g.newEvent();
+		g.removeLabel(eventB,eventB);
+		g.addLabel(eventB, eventA);		
+		
+		String eventC = g.newEvent();
+		g.removeLabel(eventC,eventC);
+		g.addLabel(eventC, eventA);		
+		
+		g.marking = g.defaultInitialMarking();
+		g.marking.pending.add(eventA);
+		g.marking.pending.add(eventB);
+		g.marking.pending.add(eventC);
+		g.marking.included.remove(eventB);
+		g.marking.included.remove(eventC);
+		g.addInclude(eventA, eventB);
+		g.addExclude(eventA, eventA);
+		g.addInclude(eventB, eventC);
+		g.addExclude(eventB, eventB);		
+		return g;
+	}	
+	
+	
+	// Absence3 l: e1(l) -->% e1(l), e2(l) -->% e2(l)
+	static LabelledDCRGraph absence3(HashSet<String> events, String eventA)
+	{
+		LabelledDCRGraph g = new LabelledDCRGraph();
+		for(String e : events)
+			g.addEvent(e);		
+		String eventB = g.newEvent();
+		g.removeLabel(eventB,eventB);
+		g.addLabel(eventB, eventA);		
+		g.marking = g.defaultInitialMarking();
+		g.addExclude(eventA, eventA);
+		g.addExclude(eventB, eventB);
+		return g;
+	}	
+	
+	//Exactly2 l: !e1(l), !e2(l), e1(l) -->% e1(l), e2(l) -->% e2(l)
+	static LabelledDCRGraph exactly2(HashSet<String> events, String eventA)
+	{
+		LabelledDCRGraph g = new LabelledDCRGraph();
+		for(String e : events)
+			g.addEvent(e);		
+		String eventB = g.newEvent();
+		g.removeLabel(eventB,eventB);
+		g.addLabel(eventB, eventA);		
+		g.marking = g.defaultInitialMarking();
+		g.marking.pending.add(eventA);
+		g.marking.pending.add(eventB);				
+		g.addExclude(eventA, eventA);
+		g.addExclude(eventB, eventB);
+		return g;
+	}		
+	
+	// Responded Existence l m: %e2(l), e1(l) *--> f(m), f(m) -->% e1(l), f(m) -->+ e2(l)
+	static LabelledDCRGraph respondedExistence(HashSet<String> events, String eventA, String eventB)
+	{
+		LabelledDCRGraph g = new LabelledDCRGraph();
+		for(String e : events)
+			g.addEvent(e);		
+		String eventA2 = g.newEvent();
+		g.removeLabel(eventA2,eventA2);
+		g.addLabel(eventA2, eventA);
+		g.marking = g.defaultInitialMarking();
+		g.marking.included.remove(eventA2);		
+		g.addResponse(eventA, eventB);						
+		g.addExclude(eventB, eventA);
+		g.addInclude(eventB, eventA2);
+		return g;
+	}
+	
+	// Co-existence l m: %e2(l), %f2(m), e1(l) *--> f1(m),  f1(m) *--> e1(l), e1(l) -->% e1(l), f1(m) -->% f1(m), e1(l) -->+ e2(l), f1(m) -->+ f2(m)
+	static LabelledDCRGraph coExistence(HashSet<String> events, String eventA, String eventB)
+	{
+		LabelledDCRGraph g = new LabelledDCRGraph();
+		for(String e : events)
+			g.addEvent(e);		
+		String eventA2 = g.newEvent();		
+		g.removeLabel(eventA2,eventA2);
+		g.addLabel(eventA2, eventA);		
+		String eventB2 = g.newEvent();
+		g.removeLabel(eventB2,eventB2);
+		g.addLabel(eventB2, eventB);		
+		g.marking = g.defaultInitialMarking();
+		g.marking.included.remove(eventA2);
+		g.marking.included.remove(eventB2);		
+		g.addResponse(eventA, eventB);
+		g.addResponse(eventB, eventA);		
+		g.addExclude(eventA, eventA);
+		g.addExclude(eventB, eventB);		
+		g.addInclude(eventA, eventA2);
+		g.addInclude(eventB, eventB2);
+		return g;
+	}		
+	
 }

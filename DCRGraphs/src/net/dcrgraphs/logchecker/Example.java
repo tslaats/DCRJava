@@ -105,7 +105,59 @@ public class Example {
 		if (DCRLogChecker.acceptingTrace(trace, graph, marking))
 			System.out.println("Accepting Trace");
 		else
-			System.out.println("Non-accepting Trace");				
+			System.out.println("Non-accepting Trace");			
+		
+		
+		//LabelledDCRGraph lg = new LabelledDCRGraph();
+		//lg.newEvent();
+		//System.out.println(lg.toString());
+		
+		LabelledDCRGraph lg = DCRTemplateFactory.existence2(DCRLogChecker.eventSet(trace), "A");
+		System.out.println("Checking for graph:");
+		System.out.println(lg.toString());
+		
+		if (DCRLogChecker.validate(trace, lg, lg.marking))
+			System.out.println("Valid Trace");
+		else
+			System.out.println("Invalid Trace");
+		
+		if (DCRLogChecker.acceptingTrace(trace, lg, lg.marking))
+			System.out.println("Accepting Trace");
+		else
+			System.out.println("Non-accepting Trace");			
+
+		
+		lg = DCRTemplateFactory.existence2(DCRLogChecker.eventSet(trace), "B");
+		System.out.println("Checking for graph:");
+		System.out.println(lg.toString());
+		
+		if (DCRLogChecker.validate(trace, lg, lg.marking))
+			System.out.println("Valid Trace");
+		else
+			System.out.println("Invalid Trace");
+		
+		if (DCRLogChecker.acceptingTrace(trace, lg, lg.marking))
+			System.out.println("Accepting Trace");
+		else
+			System.out.println("Non-accepting Trace");			
+		
+		
+		
+		lg = DCRTemplateFactory.existence2(DCRLogChecker.eventSet(trace), "C");
+		System.out.println("Checking for graph:");
+		System.out.println(lg.toString());
+		
+		if (DCRLogChecker.validate(trace, lg, lg.marking))
+			System.out.println("Valid Trace");
+		else
+			System.out.println("Invalid Trace");
+		
+		if (DCRLogChecker.acceptingTrace(trace, lg, lg.marking))
+			System.out.println("Accepting Trace");
+		else
+			System.out.println("Non-accepting Trace");			
+	
+		
 		
 	}
 }

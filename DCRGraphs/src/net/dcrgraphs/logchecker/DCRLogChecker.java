@@ -46,6 +46,17 @@ public class DCRLogChecker {
 		return result;
 	}
 	
+	public static HashSet<String> eventSet(XTrace trace)
+	{
+		HashSet<String> result = new HashSet<String>();
+		for(XEvent event :trace)
+		{
+			String activityName = XConceptExtension.instance().extractName(event);
+			result.add(activityName);
+		}		
+		return result;
+	}	
+	
 	public static boolean validate(XTrace trace, DCRGraph graph, final DCRMarking marking)
 	{
 		List<String> eventTrace = new LinkedList<String>();
