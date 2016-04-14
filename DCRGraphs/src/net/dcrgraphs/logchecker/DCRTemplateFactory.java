@@ -306,6 +306,136 @@ public class DCRTemplateFactory {
 		g.addInclude(eventA, eventA2);
 		g.addInclude(eventB, eventB2);
 		return g;
+	}
+	
+	//conditional condition”: C—>% A—>*B
+	static DCRGraph conditionalCondition(HashSet<String> events, String eventA, String eventB, String eventC)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();		
+		g.addCondition(eventA, eventB);
+		g.addExclude(eventC, eventA);		
+		return g;
+	}
+	
+	//conditional response A*—>B%<—-C
+	static DCRGraph conditionalResponse(HashSet<String> events, String eventA, String eventB, String eventC)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();		
+		g.addResponse(eventA, eventB);
+		g.addExclude(eventC, eventA);		
+		return g;
+	}
+	
+	
+	//milestone: A*—>B—<>C
+	static DCRGraph milestone(HashSet<String> events, String eventA, String eventB, String eventC)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();		
+		g.addResponse(eventA, eventB);
+		g.addMilestone(eventB, eventC);		
+		return g;
+	}	
+
+	
+	// toggle: A-->% B +<--C
+	static DCRGraph toggle(HashSet<String> events, String eventA, String eventB, String eventC)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();		
+		g.addExclude(eventA, eventB);
+		g.addInclude(eventC, eventB);		
+		return g;
 	}		
 	
+	
+	
+	static DCRGraph chainResponse(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();
+		g.addResponse(eventA, eventB);
+		
+		for(String e : events)
+			if (!e.equals(eventB))
+				g.addExclude(eventA, e);
+		
+		for(String e : events)
+			if (!e.equals(eventB))
+				g.addInclude(eventB, e);
+		
+		return g;
+	}
+	
+	
+	static DCRGraph chainPrecedence(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();
+		g.marking.included.remove(eventB);
+		g.addInclude(eventA, eventB);
+		
+		for(String e : events)
+			if (!e.equals(eventA))
+				g.addExclude(e, eventB);
+		
+		return g;
+	}
+	
+	
+	static DCRGraph chainSuccession(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();
+		g.marking.included.remove(eventB);		
+		g.addInclude(eventA, eventB);
+
+		g.addResponse(eventA, eventB);
+		
+		for(String e : events)
+			if (!e.equals(eventB))
+				g.addExclude(eventA, e);		
+		
+		for(String e : events)
+			if (!e.equals(eventB))
+				g.addInclude(eventB, e);
+		
+		g.addExclude(eventB, eventB);	
+		
+		return g;
+	}
+	
+
+	static DCRGraph notChainSuccession(HashSet<String> events, String eventA, String eventB)
+	{
+		DCRGraph g = new DCRGraph();
+		for(String e : events)
+			g.addEvent(e);				
+		g.marking = g.defaultInitialMarking();
+				
+		g.addExclude(eventA, eventB);
+		
+		for(String e : events)
+			if (!e.equals(eventA))
+				g.addInclude(e, eventB);
+		
+		return g;
+	}	
+		
 }
