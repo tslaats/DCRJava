@@ -6,7 +6,7 @@ import net.dcrgraphs.core.*;
 
 public class DCRTemplateFactory {
 	
-	static DCRGraph init(HashSet<String> events, String eventA)
+	 public static DCRGraph init(HashSet<String> events, String eventA)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -20,7 +20,7 @@ public class DCRTemplateFactory {
 	}
 	
 	
-	static DCRGraph existence(HashSet<String> events, String eventA)
+	public static DCRGraph existence(HashSet<String> events, String eventA)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -31,7 +31,7 @@ public class DCRTemplateFactory {
 	}
 	
 	
-	static DCRGraph absence(HashSet<String> events, String eventA)
+	public static DCRGraph absence(HashSet<String> events, String eventA)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -42,7 +42,7 @@ public class DCRTemplateFactory {
 	}	
 	
 	
-	static DCRGraph absence2(HashSet<String> events, String eventA)
+	public static DCRGraph absence2(HashSet<String> events, String eventA)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -53,7 +53,7 @@ public class DCRTemplateFactory {
 	}		
 	
 	
-	static DCRGraph exactly1(HashSet<String> events, String eventA)
+	public static DCRGraph exactly1(HashSet<String> events, String eventA)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -64,7 +64,7 @@ public class DCRTemplateFactory {
 		return g;
 	}	
 	
-	static DCRGraph choice(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph choice(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -78,7 +78,7 @@ public class DCRTemplateFactory {
 		return g;
 	}		
 	 
-	static DCRGraph exclusiveChoice(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph exclusiveChoice(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -94,7 +94,7 @@ public class DCRTemplateFactory {
 		return g;
 	}
 	
-	static DCRGraph response(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph response(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -104,7 +104,7 @@ public class DCRTemplateFactory {
 		return g;
 	}	
 	
-	static DCRGraph precedence(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph precedence(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -115,7 +115,7 @@ public class DCRTemplateFactory {
 	}
 	
 	
-	static DCRGraph succession(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph succession(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -126,7 +126,7 @@ public class DCRTemplateFactory {
 		return g;
 	}
 	
-	static DCRGraph alternateResponse(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph alternateResponse(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -138,7 +138,7 @@ public class DCRTemplateFactory {
 		return g;
 	}
 	 
-	static DCRGraph alternatePrecedence(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph alternatePrecedence(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -151,7 +151,7 @@ public class DCRTemplateFactory {
 	}	 
 			
 	
-	static DCRGraph alternateSuccession(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph alternateSuccession(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -167,7 +167,7 @@ public class DCRTemplateFactory {
 	}
 	
 	
-	static DCRGraph notCoExistence(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph notCoExistence(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -178,7 +178,7 @@ public class DCRTemplateFactory {
 		return g;
 	}		
 	
-	static DCRGraph notSuccession(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph notSuccession(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -189,7 +189,7 @@ public class DCRTemplateFactory {
 	}
 	
 	// Existence2 l: !e1(l), %!e2(l), e1(l) -->+ e2(l), e1(l) -->% e1(l)
-	static LabelledDCRGraph existence2(HashSet<String> events, String eventA)
+	public static LabelledDCRGraph existence2(HashSet<String> events, String eventA)
 	{
 		LabelledDCRGraph g = new LabelledDCRGraph();
 		for(String e : events)
@@ -208,7 +208,7 @@ public class DCRTemplateFactory {
 	
 
 	//Existence3 l: !e1(l), %!e2(l), %!e3(l), e1(l) -->+ e2(l), e1(l) -->% e1(l), e2(l) -->+ e3(l), e2(l) -->% e2(l)
-	static LabelledDCRGraph existence3(HashSet<String> events, String eventA)
+	public static LabelledDCRGraph existence3(HashSet<String> events, String eventA)
 	{
 		LabelledDCRGraph g = new LabelledDCRGraph();
 		for(String e : events)
@@ -236,7 +236,7 @@ public class DCRTemplateFactory {
 	
 	
 	// Absence3 l: e1(l) -->% e1(l), e2(l) -->% e2(l)
-	static LabelledDCRGraph absence3(HashSet<String> events, String eventA)
+	public static LabelledDCRGraph absence3(HashSet<String> events, String eventA)
 	{
 		LabelledDCRGraph g = new LabelledDCRGraph();
 		for(String e : events)
@@ -251,7 +251,7 @@ public class DCRTemplateFactory {
 	}	
 	
 	//Exactly2 l: !e1(l), !e2(l), e1(l) -->% e1(l), e2(l) -->% e2(l)
-	static LabelledDCRGraph exactly2(HashSet<String> events, String eventA)
+	public static LabelledDCRGraph exactly2(HashSet<String> events, String eventA)
 	{
 		LabelledDCRGraph g = new LabelledDCRGraph();
 		for(String e : events)
@@ -268,7 +268,7 @@ public class DCRTemplateFactory {
 	}		
 	
 	// Responded Existence l m: %e2(l), e1(l) *--> f(m), f(m) -->% e1(l), f(m) -->+ e2(l)
-	static LabelledDCRGraph respondedExistence(HashSet<String> events, String eventA, String eventB)
+	public static LabelledDCRGraph respondedExistence(HashSet<String> events, String eventA, String eventB)
 	{
 		LabelledDCRGraph g = new LabelledDCRGraph();
 		for(String e : events)
@@ -285,7 +285,7 @@ public class DCRTemplateFactory {
 	}
 	
 	// Co-existence l m: %e2(l), %f2(m), e1(l) *--> f1(m),  f1(m) *--> e1(l), e1(l) -->% e1(l), f1(m) -->% f1(m), e1(l) -->+ e2(l), f1(m) -->+ f2(m)
-	static LabelledDCRGraph coExistence(HashSet<String> events, String eventA, String eventB)
+	public static LabelledDCRGraph coExistence(HashSet<String> events, String eventA, String eventB)
 	{
 		LabelledDCRGraph g = new LabelledDCRGraph();
 		for(String e : events)
@@ -309,7 +309,7 @@ public class DCRTemplateFactory {
 	}
 	
 	//conditional condition”: C—>% A—>*B
-	static DCRGraph conditionalCondition(HashSet<String> events, String eventA, String eventB, String eventC)
+	public static DCRGraph conditionalCondition(HashSet<String> events, String eventA, String eventB, String eventC)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -321,7 +321,7 @@ public class DCRTemplateFactory {
 	}
 	
 	//conditional response A*—>B%<—-C
-	static DCRGraph conditionalResponse(HashSet<String> events, String eventA, String eventB, String eventC)
+	public static DCRGraph conditionalResponse(HashSet<String> events, String eventA, String eventB, String eventC)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -334,7 +334,7 @@ public class DCRTemplateFactory {
 	
 	
 	//milestone: A*—>B—<>C
-	static DCRGraph milestone(HashSet<String> events, String eventA, String eventB, String eventC)
+	public static DCRGraph milestone(HashSet<String> events, String eventA, String eventB, String eventC)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -347,7 +347,7 @@ public class DCRTemplateFactory {
 
 	
 	// toggle: A-->% B +<--C
-	static DCRGraph toggle(HashSet<String> events, String eventA, String eventB, String eventC)
+	public static DCRGraph toggle(HashSet<String> events, String eventA, String eventB, String eventC)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -360,7 +360,7 @@ public class DCRTemplateFactory {
 	
 	
 	
-	static DCRGraph chainResponse(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph chainResponse(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -380,7 +380,7 @@ public class DCRTemplateFactory {
 	}
 	
 	
-	static DCRGraph chainPrecedence(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph chainPrecedence(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -397,7 +397,7 @@ public class DCRTemplateFactory {
 	}
 	
 	
-	static DCRGraph chainSuccession(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph chainSuccession(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
@@ -422,7 +422,7 @@ public class DCRTemplateFactory {
 	}
 	
 
-	static DCRGraph notChainSuccession(HashSet<String> events, String eventA, String eventB)
+	public static DCRGraph notChainSuccession(HashSet<String> events, String eventA, String eventB)
 	{
 		DCRGraph g = new DCRGraph();
 		for(String e : events)
